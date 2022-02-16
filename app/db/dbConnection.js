@@ -6,7 +6,7 @@ pool.on('connect',()=>{
 })
 
 /**Create User table */
-const createUserTable = () => {
+const createUserTable = async () => {
         const Usercreatequery = `CREATE TABLE IF NOT EXISTS user_login
     (id SERIAL PRIMARY KEY,
         email VARCHAR(150) NOT NULL,
@@ -17,7 +17,7 @@ const createUserTable = () => {
     )
     `;
 
-    pool.query(Usercreatequery)
+    await pool.query(Usercreatequery)
     .then((res)=>{
         console.log(res);
     })
@@ -28,17 +28,19 @@ const createUserTable = () => {
 }
 
 /**Create api request log dump table */
-const createRequestLog = () => {
+const createRequestLog = async () => {
     const CreatelogTable = `CREATE TABLE IF NOT EXISTS request_log_dump
     (id SERIAL PRIMARY KEY,
         api_path VARCHAR(150) NOT NULL,
         method VARCHAR(100) NOT NULL,
-        response_status_code VARCHAR(150) NOT NULL,
+        response_status_code INT NOT NULL,
+        type INT DEFAULT 0 NOT NULL,
+        user_id INT DEFAULT 0 NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     )
     `;
     
-    pool.query(CreatelogTable)
+    await pool.query(CreatelogTable)
     .then((res) => {
         console.log(res);
     })

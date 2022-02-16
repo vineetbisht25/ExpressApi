@@ -4,12 +4,14 @@ const express = require('express');
 const {
     createUser,
     siginUser,
+    userLogs
   } = require('../controller/userController');
 
-const verifyAuth = require('../middleware/verifyAuth');
+// const verifyAuth = require('../middleware/verifyAuth');
 const router = express.Router();
 
-router.post('/Registration',verifyAuth,createUser);
-router.post('/login',verifyAuth,siginUser);
+router.post('/Registration',createUser);
+router.post('/login',siginUser);
+router.get('/user/logs',userLogs);
 
 module.exports = router;
