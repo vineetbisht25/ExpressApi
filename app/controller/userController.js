@@ -148,17 +148,25 @@ const {
       let UserLogQuery ="";
       let value = "";
       if(!("from_date" in req.query) || !("to_date" in req.query)){
-        UserLogQuery = 'SELECT * FROM request_log_dump';
-
+        UserLogQuery = `SELECT CASE WHEN type =1 THEN 'total_login_count' WHEN type =2 THEN 'total_signup_count' END typeCount,count(type) FROM request_log_dump where type in  (1,2) group by type`;
       }else{
-        UserLogQuery = 'SELECT * FROM request_log_dump where date(created_at) between $1 and $2';
+        UserLogQuery = `SELECT CASE WHEN type =1 THEN 'total_login_count' WHEN type =2 THEN 'total_signup_count' END typeCount,count(type) FROM request_log_dump where type in  (1,2) group by type AND between $1 and $2`;
         value = [
           from_date,
           to_date
         ]
       }
+      
+      let newObject = {};
       const { rows } = await dbQuery.query(UserLogQuery, value);
-      (rows.length > 0)?successMessage.data = rows:successMessage.message = "No Data Found";
+      if(rows.length > 0){
+        let rowsNew = rows.map(e => {
+            return newObject[e.typecount] = Number(e.count);
+        })
+        successMessage.data = [newObject]
+      }else{
+        successMessage.message = "No Data Found";
+      }
       successMessage.responsecode = status.success;
       await logRequest.requestDump(req,status.success,3);
       return res.status(status.success).send(successMessage);
