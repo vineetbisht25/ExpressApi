@@ -150,7 +150,7 @@ const {
       if(!("from_date" in req.query) || !("to_date" in req.query)){
         UserLogQuery = `SELECT CASE WHEN type =1 THEN 'total_login_count' WHEN type =2 THEN 'total_signup_count' END typeCount,count(type) FROM request_log_dump where type in  (1,2) group by type`;
       }else{
-        UserLogQuery = `SELECT CASE WHEN type =1 THEN 'total_login_count' WHEN type =2 THEN 'total_signup_count' END typeCount,count(type) FROM request_log_dump where type in  (1,2) AND date(created_at) between $1 and $2 group by type `; 
+        UserLogQuery = `SELECT CASE WHEN type =1 THEN 'total_login_count' WHEN type =2 THEN 'total_signup_count' END typeCount,count(type) FROM request_log_dump where type in  (1,2) AND date(created_at) between $1 and $2 group by type `;
         value = [
           from_date,
           to_date
