@@ -2,8 +2,8 @@ const Pool = require('pg').Pool;
 
 const dotenv = require('dotenv');
 dotenv.config();
-let c = 5
-let d = 6
+let p = 5
+let t = 6
 const databaseCofig = 
     {
         user:process.env.POSTGRESQL_USER,
@@ -13,6 +13,6 @@ const databaseCofig =
         port:process.env.POSTGRESQL_PORT 
 };
 const pool = new Pool(databaseCofig);
-let substract = b-c
+let substract = p-t
 console.log(substract)
 module.exports = pool;
