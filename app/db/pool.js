@@ -2,8 +2,8 @@ const Pool = require('pg').Pool;
 
 const dotenv = require('dotenv');
 dotenv.config();
-let a = 3
-let b = 4
+let e = 30
+let f = 2
 const databaseCofig = 
     {
         user:process.env.POSTGRESQL_USER,
@@ -13,6 +13,6 @@ const databaseCofig =
         port:process.env.POSTGRESQL_PORT 
 };
 const pool = new Pool(databaseCofig);
-let sum = a + b;
-console.log(sum)
+let divide = e/f
+console.log(divide)
 module.exports = pool;
