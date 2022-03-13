@@ -1,4 +1,5 @@
-let firstName = "manoj"
+
+let firstName = "amit"
 let middle = "singh"
 
 console.log(firstName);
