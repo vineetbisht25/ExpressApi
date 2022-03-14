@@ -6,4 +6,3 @@ console.log(firstName);
 console.log("get full name");
 console.log(middle);
 console.log("middle");
-
