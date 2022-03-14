@@ -11,3 +11,4 @@ exports.query= async (quertText, params) => {
         });
     });
   }
+  console.log("none")
